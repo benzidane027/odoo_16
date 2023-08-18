@@ -1,0 +1,45 @@
+version: "3"
+services:
+  odoo:
+    container_name: odoo_13
+    image: odoo:13
+    user: root
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./odoo_data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+      - ./filestore:/root/.local/share/Odoo/filestore/
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+      - PGDATA:/var/lib/postgresql/data/pgdata
+    command: -- --dev=all
+  db:
+    image: postgres:11.6
+    container_name: db
+    user: root
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - ./data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=example@example.ex
+  #     - PGADMIN_DEFAULT_PASSWORD=admin
+  #   depends_on:
+  #     - odoo
+  #   ports:
+  #     - "5050:80"
+
