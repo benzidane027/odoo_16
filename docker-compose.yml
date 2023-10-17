@@ -28,8 +28,8 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
-    volumes:
-      - ./data:/var/lib/postgresql/data/
+    # volumes:
+    #   - ./data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
@@ -43,3 +43,9 @@ services:
   #   ports:
   #     - "5050:80"
 
+volumes:
+  data:
+  odoo_data:
+  config:
+  addons:
+  filestore:
