@@ -29,8 +29,8 @@ services:
       - ./certbot/conf/:/etc/letsencrypt/:rw
       
   odoo:
-    container_name: odoo_13
-    image: odoo:13
+    container_name: odoo_16
+    image: odoo:16
     user: root
     depends_on:
       - db
